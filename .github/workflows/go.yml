@@ -25,16 +25,18 @@ jobs:
       run: go build -v ./...
 
     - name: Test
-      run: go test -v ./... -json > TestResults.json
+      run: go test -v -race -shuffle=on -coverprofile=coverage.txt -json > TestResults.json ./...
       
     - name: Update Test Results
       uses: actions/upload-artifact@v3
       with:
         name: Go-Test-results
         path: TestResults.json
-        
-    - name: Test Summary
-      uses: test-summary/action@v2
+
+    - name: Upload Coverage
+      uses: codecov/codecov-action@v3
+      continue-on-error: true
       with:
-        paths: "TestResults.json"
-      if: always()
+        token: ${{secrets.CODECOV_TOKEN}}
+        file: ./coverage.txt
+        fail_ci_if_error: false
