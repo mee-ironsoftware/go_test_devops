@@ -32,3 +32,9 @@ jobs:
       with:
         name: Go-Test-results
         path: TestResults.json
+        
+    - name: Test Summary
+      uses: test-summary/action@v2
+      with:
+        paths: "TestResults.json"
+      if: always()
