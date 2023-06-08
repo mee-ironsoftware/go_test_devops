@@ -1,4 +1,4 @@
-module github.com/williaminfante/go_test_starter
+module github.com/mee-ironsoftware/go_test_devops
 
 go 1.20
 
